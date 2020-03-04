@@ -4,6 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Alexey Matyukhin</Authors>
+    <PackageProjectUrl>https://github.com/Fluttercord/Cartesian</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Fluttercord/Cartesian</RepositoryUrl>
+    <PackageTags>Cartesian</PackageTags>
   </PropertyGroup>
 
 </Project>
