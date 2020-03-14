@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cartesian
 {
-	sealed class CartesianEnumerator<TElement, TDimension> : IEnumerator<IReadOnlyList<TElement>>
+	internal sealed class CartesianEnumerator<TElement, TDimension> : IEnumerator<IReadOnlyList<TElement>>
 		where TDimension : IEnumerable<TElement>
 	{
 		private readonly IReadOnlyList<IEnumerator<TElement>> _enumerators;
