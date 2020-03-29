@@ -8,7 +8,7 @@
     <RepositoryUrl>https://github.com/Fluttercord/Cartesian</RepositoryUrl>
     <PackageTags>Cartesian</PackageTags>
     <Description>This package provides enumeration multiple collections via IEnumerable.Cartesian() extension method</Description>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageReleaseNotes>CartesianEnumerable static class introduced. Enumerate() method essentially does the same thing as IEnumerable.Cartesian() extension method. It provides enumeration of collection of different types up to 5 collections as well, but be aware of boxing/unboxing value type performance issues.</PackageReleaseNotes>
   </PropertyGroup>
 
