@@ -27,6 +27,14 @@ namespace Cartesian.Test
 		}
 
 		[TestMethod]
+		public void CartesianEmptySecondDimension()
+		{
+			var dimensions = new[] { new[] { 0, 1 }, Array.Empty<int>() };
+			foreach (var item in dimensions.Cartesian<int, int[]>())
+				Assert.Fail();
+		}
+
+		[TestMethod]
 		public void CartesianExplicitType()
 		{
 			var dimensions = new[] { new[] { 0, 1 }, new[] { 3, 4 } };

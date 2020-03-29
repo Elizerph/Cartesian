@@ -16,7 +16,13 @@ namespace Cartesian
 
 		public IEnumerator<IReadOnlyList<TElement>> GetEnumerator()
 		{
-			return new CartesianEnumerator<TElement, TDimension>(_dimensions);
+			var enumerators = _dimensions.Select(d => d.GetEnumerator()).ToArray();
+
+			foreach (var enumerator in enumerators.Skip(1))
+				if (!enumerator.MoveNext())
+					return new EmptyEnumerator<IReadOnlyList<TElement>>();
+
+			return new CartesianEnumerator<TElement>(enumerators);
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()

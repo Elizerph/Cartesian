@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cartesian
 {
-	internal sealed class CartesianEnumerator<TElement, TDimension> : IEnumerator<IReadOnlyList<TElement>>
-		where TDimension : IEnumerable<TElement>
+	internal sealed class CartesianEnumerator<T> : IEnumerator<IReadOnlyList<T>>
 	{
-		private readonly IReadOnlyList<IEnumerator<TElement>> _enumerators;
-		private bool _firstElementReached;
+		private readonly IReadOnlyCollection<IEnumerator<T>> _enumerators;
 
-		public CartesianEnumerator(IEnumerable<TDimension> dimensions)
+		public CartesianEnumerator(IReadOnlyCollection<IEnumerator<T>> enumerators)
 		{
-			if (dimensions == null)
-				throw new ArgumentNullException(nameof(dimensions));
+			if (enumerators == null)
+				throw new ArgumentNullException(nameof(enumerators));
 
-			_enumerators = dimensions.ToArray(e => e.GetEnumerator());
+			_enumerators = enumerators;
 		}
 
-		public IReadOnlyList<TElement> Current
+		public IReadOnlyList<T> Current
 		{
 			get
 			{
@@ -36,22 +33,14 @@ namespace Cartesian
 
 		public bool MoveNext()
 		{
-			if (!_firstElementReached)
+			foreach (var enumerator in _enumerators)
 			{
-				_firstElementReached = _enumerators.Any() && _enumerators.All(e => e.MoveNext());
-				return _firstElementReached;
-			}
-			else
-			{
-				foreach (var enumerator in _enumerators)
+				if (enumerator.MoveNext())
+					return true;
+				else
 				{
-					if (enumerator.MoveNext())
-						return true;
-					else
-					{
-						enumerator.Reset();
-						enumerator.MoveNext();
-					}
+					enumerator.Reset();
+					enumerator.MoveNext();
 				}
 			}
 			return false;
